@@ -1,0 +1,95 @@
+import React, { useEffect, useState } from "react";
+
+const images = [
+  {
+    url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80",
+  },
+
+  {
+    url: "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
+  },
+];
+
+const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000 }) => {
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const prevSlide = () => 
+  setCurrentIndex((curr) => curr === 0 ? slides.length - 1 : curr - 1)
+
+  const nextSlide = () => 
+    setCurrentIndex((curr) => curr === slides.length -1 ? 0 : curr + 1)
+
+  useEffect(() => {
+    if(!autoSlide) return
+    const slideInterval = setInterval(nextSlide, autoSlideInterval)
+    return () => clearInterval(slideInterval)
+  },[])
+
+  return (
+    <div className='h-[300px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border'>
+      <div className="max-w-[1400px] h-[300px] md:h-[500px] w-full m-auto relative group">
+        <div
+          style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+          className="w-full h-full bg-center bg-cover bg-origin-border duration-500"
+        >
+          <div className="bg-black/40 h-[300px] md:h-[500px] w-full flex flex-col justify-center items-center">
+            <h2 className="text-5xl md:text-6xl font-bold text-white py-2">
+            Mi Negocio
+          </h2>
+            <p className="text-2xl md:text-3xl text-white py-2">
+              Soluciones creativas, resultados creativos.
+            </p>
+          </div>
+        </div>
+        {/* Left Arrow */}
+        <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+            onClick={prevSlide}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </div>
+        {/* Right Arrow */}
+        <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+            onClick={nextSlide}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Carousel;
