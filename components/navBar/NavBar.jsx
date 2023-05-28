@@ -5,7 +5,7 @@ const NavBar = () => {
   const [nav, setNav] = useState(false)
 
   return (
-    <div className="bg-[#0b52c3] relative h-[80px] shadow-xl">
+    <div className="bg-[#0b52c3] z-10 relative h-[80px] shadow-xl">
 
       {/* NAVBAR */}
 
