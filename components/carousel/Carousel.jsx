@@ -37,7 +37,7 @@ const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000 
 
   return (
     <div className='h-[300px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border'>
-      <div className="max-w-[1400px] h-[300px] md:h-[500px] w-full m-auto relative group">
+      <div className="h-[300px] md:h-[500px] w-full m-auto relative group">
         <div
           style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
           className="w-full h-full bg-center bg-cover bg-origin-border duration-500"
@@ -46,7 +46,7 @@ const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000 
             <h2 className="text-5xl md:text-6xl font-bold text-white py-2">
             Mi Negocio
           </h2>
-            <p className="text-2xl md:text-3xl text-white py-2">
+            <p className="text-xl sm:text-2xl md:text-3xl text-white py-2 text-center">
               Soluciones creativas, resultados creativos.
             </p>
           </div>
