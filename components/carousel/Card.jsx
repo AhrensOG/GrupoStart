@@ -13,7 +13,7 @@ const Card = ({
   description = data.description,
 }) => {
   return (
-    <div class="sm:w-[350px] w-[290px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-black hover:shadow-2xl hover:-translate-y-2 ease-in duration-200">
+    <div class="sm:w-[350px] w-[290px] bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 hover:shadow-black/70 hover:shadow-xl hover:-translate-y-2 ease-in duration-200">
       <a href="#">
         <img class="rounded-t-lg" src={`${img}`} alt="" />
       </a>

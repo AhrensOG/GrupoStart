@@ -49,7 +49,7 @@ const SimpleSlider = () => {
           />
         </svg>
       </div>
-      <div id="content" className="px-4 py-6 carousel flex flex-row gap-4 items-center justify-start overflow-x-auto w-full scroll-smooth">
+      <div id="content" className="px-4 py-10 carousel flex flex-row gap-4 items-center justify-start overflow-x-auto w-full scroll-smooth">
         <Card />
         <Card />
         <Card />
