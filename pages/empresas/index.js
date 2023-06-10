@@ -4,7 +4,7 @@ import Carousel from '../../components/carousel/Carousel'
 import Footer from '../../components/footer/Footer'
 import SimpleSlider from '../../components/carousel/SimpleSlider'
 import SearchBar from '../../components/search/SearchBar'
-import ListCompanyCards from '../../components/listCompanyCards/listCompanyCards'
+import ListCompanyCards from '../../components/listCompanyCards/ListCompanyCards'
 
 const Empresas = () => {
   return (
