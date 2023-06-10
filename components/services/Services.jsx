@@ -33,7 +33,7 @@ const Services = ({ services = listServices }) => {
         {
           services?.map((el) => {
             return (
-              <CardService img={el.img} title={el.title} description={el.description} urlService={el.urlService}/>
+              <CardService key={el.title} img={el.img} title={el.title} description={el.description} urlService={el.urlService}/>
             )
           })
         }
