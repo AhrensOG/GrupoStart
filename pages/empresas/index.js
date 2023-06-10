@@ -4,14 +4,16 @@ import Carousel from '../../components/carousel/Carousel'
 import Footer from '../../components/footer/Footer'
 import SimpleSlider from '../../components/carousel/SimpleSlider'
 import SearchBar from '../../components/search/SearchBar'
+import ListCompanyCards from '../../components/listCompanyCards/listCompanyCards'
 
 const Empresas = () => {
   return (
     <div>
       <NavBar/>
-      <Carousel/>
+      <Carousel autoSlide={true}/>
       <SimpleSlider/>
       <SearchBar/>
+      <ListCompanyCards/>
       <Footer/>
     </div>
   )
