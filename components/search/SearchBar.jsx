@@ -25,7 +25,7 @@ const SearchBar = ({ setCategorySearch }) => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
+              className="w-6 h-6 text-white"
             >
               <path
                 strokeLinecap="round"
@@ -37,14 +37,14 @@ const SearchBar = ({ setCategorySearch }) => {
           <input
             type="search"
             id="search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border-2 border-gray-200 rounded-lg bg-gray-50 focus:ring-blue-600 focus:border-blue-600 outline-none duration-200"
+            className="block w-full p-4 pl-10 text-lg text-white border-2 border-[#0853fc] rounded-lg bg-[#0853fc] outline-none duration-200"
             placeholder="Buscar Rubro"
             required
             onChange={handleSearch}
           />
           <button
             type="submit"
-            className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2"
+            className="text-white font-semibold absolute right-2.5 bottom-3.5 bg-[#fb8a00] hover:text-[#0853fc] rounded-lg text-sm px-4 py-2 duration-200"
           >
             Buscar
           </button>
