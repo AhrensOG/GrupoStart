@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DropdownNavBar from "./auxComponents/DropdownNavBar";
 import SideBar from "./SideBar";
 
-const NavBar = () => {
+const NavBar = ({ home = true, servicesDropdown = true }) => {
   const [nav, setNav] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [burgerColor, setBurgerColor] = useState('white')
@@ -45,17 +45,29 @@ const NavBar = () => {
 
         {/* OPTIONS */}
         <div className="hidden sm:flex flex-row basis-[70%] justify-end items-center">
-          <Link href={"/"}>
-            <h2 className="px-4 lg:px-6 text-xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
-              Inicio
-            </h2>
-          </Link>
+          {
+            home && (<Link href={"/"}>
+              <h2 className="px-4 lg:px-6 text-xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
+                Inicio
+              </h2>
+            </Link>)
+          }
           <Link href={"/empresas"}>
             <h2 className="px-4 lg:px-6 text-xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
               Empresas
             </h2>
           </Link>
-          <DropdownNavBar setIsOpen={setIsOpen} isOpen={isOpen}/>
+          {
+            servicesDropdown ? 
+            <DropdownNavBar setIsOpen={setIsOpen} isOpen={isOpen}/>
+            : (
+              <Link href={"/servicios"}>
+                <h2 className="px-4 lg:px-6 text-xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
+                  Servicios
+                </h2>
+              </Link>
+            )
+          }
         </div>
       </div>
 
@@ -69,7 +81,7 @@ const NavBar = () => {
       ></div>
 
       {/* SIDEBAR */}
-      <SideBar setNav={setNav} nav={nav} setIsOpen={setIsOpen} isOpen={isOpen}/>
+      <SideBar setNav={setNav} nav={nav} setIsOpen={setIsOpen} isOpen={isOpen} home={home} servicesDropdown={servicesDropdown}/>
     </div>
   );
 };

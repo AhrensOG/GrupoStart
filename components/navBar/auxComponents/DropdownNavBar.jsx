@@ -43,9 +43,9 @@ const DropdownNavBar = ({ setIsOpen, isOpen }) => {
             </button>
             {isOpen && (
               <div className="fixed flex flex-col gap-1 pl-[4px] pr-[7px] py-2 rounded-lg bg-[#fb8a00]">
-                <Link href={"/servicios/CommunityManager"}>
-                  <h2 className="font-semibold text-white py-1 pr-4 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
-                    Community Manager
+                <Link href={"/servicios/MarketingYRedes"}>
+                  <h2 className="font-semibold text-white py-1 pr-8 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
+                    Marketing y Redes
                   </h2>
                 </Link>
                 <Link href={"/servicios/DesarrolloWeb"}>
@@ -53,11 +53,11 @@ const DropdownNavBar = ({ setIsOpen, isOpen }) => {
                     Desarrollo Web
                   </h2>
                 </Link>
-                <Link href={"/servicios/MarketingDigital"}>
+                {/* <Link href={"/servicios/MarketingDigital"}>
                   <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
                     Marketing Digital
                   </h2>
-                </Link>
+                </Link> */}
               </div>
             )}
           </div>

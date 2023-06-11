@@ -3,10 +3,10 @@ import CardService from './CardService'
 
 const listServices = [
   {
-    title: 'Community Manager',
+    title: 'Marketing y Redes',
     img: '/service.png',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quasi velit sit, necessitatibus fugiat autem.',
-    urlService: 'CommunityManager'
+    urlService: 'MarketingYRedes'
     
   },
   {
@@ -15,12 +15,12 @@ const listServices = [
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quasi velit sit, necessitatibus fugiat autem.',
     urlService: 'DesarrolloWeb'
   },
-  {
-    title: 'Marketing Digital',
-    img: '/service.png',
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quasi velit sit, necessitatibus fugiat autem.',
-    urlService: 'MarketingDigital'
-  }
+  // {
+  //   title: 'Marketing Digital',
+  //   img: '/service.png',
+  //   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo quasi velit sit, necessitatibus fugiat autem.',
+  //   urlService: 'MarketingDigital'
+  // }
 ]
 
 const Services = ({ services = listServices }) => {
