@@ -1,0 +1,25 @@
+import React from 'react'
+import NavBar from '../../components/navBar/NavBar'
+import Carousel from '../../components/carousel/Carousel'
+import Footer from '../../components/footer/Footer'
+import SimpleSlider from '../../components/carousel/SimpleSlider'
+import SearchBar from '../../components/search/SearchBar'
+import ListCompanyCards from '../../components/listCompanyCards/ListCompanyCards'
+import { useRouter } from 'next/router'
+
+const Empresas = () => {
+  const { asPath } = useRouter() 
+  const navbarButtons = asPath === '/empresas'
+  return (
+    <div>
+      <NavBar servicesDropdown={!navbarButtons}/>
+      <Carousel autoSlide={true} autoSlideInterval={5000}/>
+      <SimpleSlider/>
+      <SearchBar/>
+      <ListCompanyCards/>
+      <Footer/>
+    </div>
+  )
+}
+
+export default Empresas

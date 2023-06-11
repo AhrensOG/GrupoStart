@@ -29,9 +29,9 @@ const Contact = () => {
     }).then(() => setQuery({ name: "", email: "", message: "" }));
   };
   return (
-    <div className="bg-[#ff4300] flex flex-col justify-center items-center px-4 py-10">
+    <div id="contact" className="bg-[#fb8a00] flex flex-col justify-center items-center px-4 py-10">
       <div className="pb-8">
-        <h1 className="font-roboto text-5xl text-white font-semibold border-b-4 border-b-[#0b52c3] pb-2">
+        <h1 className="font-roboto text-5xl text-white font-semibold border-b-4 border-b-[#0853fc] pb-2">
           Contacto
         </h1>
       </div>
@@ -40,7 +40,7 @@ const Contact = () => {
           <h2 className="font-roboto font-semibold text-white">
             Formosa, Argentina
           </h2>
-          <span className="flex flex-row gap-1 items-center justify-center font-roboto text-[#0b52c3] font-semibold">
+          <span className="flex flex-row gap-1 items-center justify-center font-roboto text-[#0853fc] font-semibold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -57,7 +57,7 @@ const Contact = () => {
             </svg>
             3705999999
           </span>
-          <span className="flex flex-row gap-1 items-center justify-center font-roboto text-[#0b52c3] font-semibold">
+          <span className="flex flex-row gap-1 items-center justify-center font-roboto text-[#0853fc] font-semibold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -83,7 +83,7 @@ const Contact = () => {
                 name="name"
                 required
                 placeholder="Nombre"
-                className="w-full h-[50px] p-2 rounded-lg text-lg focus:outline-none focus:ring-[3px] focus:ring-[#0b52c3]"
+                className="w-full h-[50px] p-2 rounded-lg text-lg focus:outline-none focus:ring-[3px] focus:ring-[#0853fc]"
                 value={query.name}
                 onChange={handleParam()}
               />
@@ -94,7 +94,7 @@ const Contact = () => {
                 name="email"
                 required
                 placeholder="Email"
-                className="w-full h-[50px] p-2 rounded-lg text-lg focus:outline-none focus:ring-[3px] focus:ring-[#0b52c3]"
+                className="w-full h-[50px] p-2 rounded-lg text-lg focus:outline-none focus:ring-[3px] focus:ring-[#0853fc]"
                 value={query.email}
                 onChange={handleParam()}
               />
@@ -106,12 +106,12 @@ const Contact = () => {
                 rows={5}
                 required
                 placeholder="Mensaje"
-                className="w-full p-2 rounded-lg text-lg focus:outline-none focus:ring-[3px] focus:ring-[#0b52c3]"
+                className="w-full p-2 rounded-lg text-lg focus:outline-none focus:ring-[3px] focus:ring-[#0853fc]"
                 value={query.message}
                 onChange={handleParam()}
               />
             </div>
-            <button type="submit" className="bg-[#0b52c3] w-full h-[50px] rounded-lg text-white text-2xl hover:shadow-xl hover:shadow-black/25 ease-in duration-300">Consultanos!</button>
+            <button type="submit" className="bg-[#0853fc] w-full h-[50px] rounded-lg text-white text-2xl hover:shadow-xl hover:shadow-black/25 ease-in duration-300">Consultanos!</button>
           </form>
         </div>
       </div>
