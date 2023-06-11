@@ -17,15 +17,15 @@ const Footer = () => {
         <Link href={'/empresas'}>
           <span className='text-sm font-roboto text-white hover:text-[#fb8a00]'>Empresas</span>
         </Link>
-        <Link href={'/servicios/CommunityManager'}>
-          <span className='text-sm font-roboto text-white hover:text-[#fb8a00]'>Community Manager</span>
+        <Link href={'/servicios/MarketingYRedes'}>
+          <span className='text-sm font-roboto text-white hover:text-[#fb8a00]'>Marketing y Redes</span>
         </Link>
         <Link href={'/servicios/DesarrolloWeb'}>
           <span className='text-sm font-roboto text-white hover:text-[#fb8a00]'>Desarrollo Web</span>
         </Link>
-        <Link href={'/servicios/MarketingDigital'}>
+        {/* <Link href={'/servicios/MarketingDigital'}>
           <span className='text-sm font-roboto text-white hover:text-[#fb8a00]'>Marketing Digital</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   )

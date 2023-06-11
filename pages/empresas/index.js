@@ -5,12 +5,15 @@ import Footer from '../../components/footer/Footer'
 import SimpleSlider from '../../components/carousel/SimpleSlider'
 import SearchBar from '../../components/search/SearchBar'
 import ListCompanyCards from '../../components/listCompanyCards/ListCompanyCards'
+import { useRouter } from 'next/router'
 
 const Empresas = () => {
+  const { asPath } = useRouter() 
+  const navbarButtons = asPath === '/empresas'
   return (
     <div>
-      <NavBar/>
-      <Carousel autoSlide={true}/>
+      <NavBar servicesDropdown={!navbarButtons}/>
+      <Carousel autoSlide={true} autoSlideInterval={5000}/>
       <SimpleSlider/>
       <SearchBar/>
       <ListCompanyCards/>

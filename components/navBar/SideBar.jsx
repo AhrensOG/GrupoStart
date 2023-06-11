@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import DropdownSideBar from './auxComponents/DropdownSideBar'
 import Link from 'next/link'
 
-const SideBar = ({ setNav, nav, setIsOpen, isOpen }) => {
+const SideBar = ({ setNav, nav, setIsOpen, isOpen, home = true, servicesDropdown = true }) => {
   const [exitColor, setExitColor] = useState('white')
+
   return (
     <div
         className={`${
@@ -31,17 +32,29 @@ const SideBar = ({ setNav, nav, setIsOpen, isOpen }) => {
             </svg>
           </button>
           <div className={`flex flex-col items-start p-4 gap-8`}>
-            <Link href={"/"}>
-              <h2 className="px-2 lg:px-4 text-2xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
-                Inicio
-              </h2>
-            </Link>
+            {
+              home && <Link href={"/"}>
+                <h2 className="px-2 lg:px-4 text-2xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
+                  Inicio
+                </h2>
+              </Link>
+            }
             <Link href={"/empresas"}>
               <h2 className="px-2 lg:px-4 text-2xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
                 Empresas
               </h2>
             </Link>
-            <DropdownSideBar setIsOpen={setIsOpen} isOpen={isOpen}/>
+            {
+              servicesDropdown ?
+              <DropdownSideBar setIsOpen={setIsOpen} isOpen={isOpen}/>
+              : (
+                <Link href={"/servicios"}>
+                  <h2 className="px-2 lg:px-4 text-2xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
+                    Servicios
+                  </h2>
+                </Link>
+              )
+            }
           </div>
         </div>
       </div>

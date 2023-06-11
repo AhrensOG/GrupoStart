@@ -43,9 +43,9 @@ const DropdownSideBar = ({ setIsOpen, isOpen }) => {
               </button>
               {isOpen && (
                 <div className="flex flex-col gap-1 px-[7px] py-2 rounded-lg bg-[#fb8a00]">
-                  <Link href={"/servicios/CommunityManager"}>
+                  <Link href={"/servicios/MarketingYRedes"}>
                     <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
-                      Community Manager
+                      Marketing y Redes
                     </h2>
                   </Link>
                   <Link href={"/servicios/DesarrolloWeb"}>
@@ -53,11 +53,11 @@ const DropdownSideBar = ({ setIsOpen, isOpen }) => {
                       Desarrollo Web
                     </h2>
                   </Link>
-                  <Link href={"/servicios/MarketingDigital"}>
+                  {/* <Link href={"/servicios/MarketingDigital"}>
                     <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
                       Marketing Digital
                     </h2>
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>
