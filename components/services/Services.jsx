@@ -27,7 +27,7 @@ const Services = ({ services = listServices }) => {
   return (
     <div className='flex flex-col items-center justify-center py-16'>
       <div className='pb-6'>
-        <h2 className='text-3xl font-roboto tracking-widest border-b-2 border-b-[#0b52c3]'>Servicios</h2>
+        <h2 className='text-3xl font-roboto tracking-widest border-b-2 border-b-[#0853fc]'>Servicios</h2>
       </div>
       <div className='md:grid md:grid-cols-3 sm:flex sm:flex-row sm:gap-2 flex flex-row flex-wrap justify-center items-center'>
         {
