@@ -42,9 +42,9 @@ const DropdownNavBar = ({ setIsOpen, isOpen }) => {
               )}
             </button>
             {isOpen && (
-              <div className="fixed flex flex-col gap-1 px-[7px] py-2 rounded-lg bg-[#fb8a00]">
+              <div className="fixed flex flex-col gap-1 pl-[4px] pr-[7px] py-2 rounded-lg bg-[#fb8a00]">
                 <Link href={"/servicios/CommunityManager"}>
-                  <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
+                  <h2 className="font-semibold text-white py-1 pr-4 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
                     Community Manager
                   </h2>
                 </Link>
