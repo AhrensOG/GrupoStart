@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DropdownSideBar from './auxComponents/DropdownSideBar'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const SideBar = ({ setNav, nav, setIsOpen, isOpen, home = true, servicesDropdown = true }) => {
   const [exitColor, setExitColor] = useState('white')
@@ -12,7 +13,8 @@ const SideBar = ({ setNav, nav, setIsOpen, isOpen, home = true, servicesDropdown
         } sm:hidden bg-[#0b52c3] min-h-screen fixed top-0 left-0 transition-all duration-300`}
       >
         <div className={`${!nav && "hidden"}`}>
-          <button className={`p-4 cursor-default`}>
+          <button className={`p-5 cursor-default flex flex-row justify-between items-center w-full`}>
+            <Image priority={true} src={'/logo.png'} width={100} height={100} alt='logo' className='w-[100px] xsm:w-[150px] h-auto'/>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
