@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Contact = () => {
@@ -29,7 +31,10 @@ const Contact = () => {
     }).then(() => setQuery({ name: "", email: "", message: "" }));
   };
   return (
-    <div id="contact" className="bg-[#fb8a00] flex flex-col justify-center items-center px-4 py-10">
+    <div
+      id="contact"
+      className="bg-[#fb8a00] flex flex-col justify-center items-center px-4 py-10"
+    >
       <div className="pb-8">
         <h1 className="font-roboto text-5xl text-white font-semibold border-b-4 border-b-[#0853fc] pb-2">
           Contacto
@@ -72,11 +77,24 @@ const Contact = () => {
                 d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
               />
             </svg>
-            grupostart@gmail.com
+            grupostartfsa@gmail.com
+          </span>
+          <span className="flex flex-row gap-2 items-center justify-center font-roboto text-[#0853fc] font-semibold">
+            <Image src={"/ig.svg"} width={22} height={22} alt="ig" />
+            <Link
+              href={"https://www.instagram.com/grupostart.ok/"}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              grupostart.ok
+            </Link>
           </span>
         </div>
         <div className="w-full h-full p-4 sm:basis-2/3 md:basis-1/2">
-          <form onSubmit={formSubmit} className="w-full h-full flex flex-col justify-center items-center gap-2">
+          <form
+            onSubmit={formSubmit}
+            className="w-full h-full flex flex-col justify-center items-center gap-2"
+          >
             <div className="w-full h-full">
               <input
                 type="text"
@@ -111,7 +129,12 @@ const Contact = () => {
                 onChange={handleParam()}
               />
             </div>
-            <button type="submit" className="bg-[#0853fc] w-full h-[50px] rounded-lg text-white text-2xl hover:shadow-xl hover:shadow-black/25 ease-in duration-300">Consultanos!</button>
+            <button
+              type="submit"
+              className="bg-[#0853fc] w-full h-[50px] rounded-lg text-white text-2xl hover:shadow-xl hover:shadow-black/25 ease-in duration-300"
+            >
+              Consultanos!
+            </button>
           </form>
         </div>
       </div>
