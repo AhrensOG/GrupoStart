@@ -6,6 +6,7 @@ import SimpleSlider from '../../components/carousel/SimpleSlider'
 import SearchBar from '../../components/search/SearchBar'
 import ListCompanyCards from '../../components/listCompanyCards/ListCompanyCards'
 import { useRouter } from 'next/router'
+import Wsp from '../../components/whatsapp/Wsp'
 
 const Empresas = () => {
   const { asPath } = useRouter() 
@@ -18,6 +19,7 @@ const Empresas = () => {
       <SearchBar/>
       <ListCompanyCards/>
       <Footer/>
+      <Wsp/>
     </div>
   )
 }
