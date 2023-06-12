@@ -5,6 +5,7 @@ import Footer from "../components/footer/Footer";
 import Hero from "../components/hero/Hero";
 import NavBar from "../components/navBar/NavBar";
 import Services from "../components/services/Services";
+import Wsp from "../components/whatsapp/Wsp";
 
 export default function Home() { 
   const { asPath } = useRouter() 
@@ -17,6 +18,7 @@ export default function Home() {
       <Services/>
       <Contact/>
       <Footer/>
+      <Wsp/>
     </div>
   )
 }
