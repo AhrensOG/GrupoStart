@@ -7,6 +7,7 @@ import NavBar from "../components/navBar/NavBar";
 import Services from "../components/services/Services";
 import Wsp from "../components/whatsapp/Wsp";
 import Head from "next/head";
+import HeroV2 from "../components/hero/HeroV2";
 
 export default function Home() { 
   const { asPath } = useRouter() 
@@ -17,7 +18,7 @@ export default function Home() {
         <title>GrupoStart</title>
       </Head>
       <NavBar home={!navbarButtons} servicesDropdown={!navbarButtons} />
-      <Hero/>
+      <HeroV2/>
       <About/>
       <Services/>
       <Contact/>
