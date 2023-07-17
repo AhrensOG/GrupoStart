@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         roboto:"'Roboto Condensed', sans-serif",
+        concert:"'Concert One', cursive",
       }
     },
     screens: {
