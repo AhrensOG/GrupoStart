@@ -10,7 +10,7 @@ const SideBar = ({ setNav, nav, setIsOpen, isOpen, home = true, servicesDropdown
     <div
         className={`${
           !nav ? "w-[0%]" : "w-[60%]"
-        } sm:hidden bg-[#0b52c3] min-h-screen fixed top-0 left-0 transition-all duration-300`}
+        } sm:hidden bg-[#0b52c3] min-h-screen fixed top-0 left-0 transition-all duration-300 z-10`}
       >
         <div className={`${!nav && "hidden"}`}>
           <button className={`p-5 cursor-default flex flex-row justify-between items-center w-full`}>

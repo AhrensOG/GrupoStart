@@ -9,6 +9,7 @@ import Wsp from "../components/whatsapp/Wsp";
 import Head from "next/head";
 import HeroV2 from "../components/hero/HeroV2";
 import NavBarV2 from "../components/navBar/NavBarV2";
+import ServicesV2 from "../components/services/ServicesV2";
 
 export default function Home() { 
   const { asPath } = useRouter() 
@@ -22,7 +23,8 @@ export default function Home() {
       <NavBarV2 home={!navbarButtons} servicesDropdown={!navbarButtons} />
       <HeroV2/>
       {/* <About/> */}
-      <Services/>
+      {/* <Services/> */}
+      <ServicesV2/>
       <Contact/>
       <Footer/>
       <Wsp/>
