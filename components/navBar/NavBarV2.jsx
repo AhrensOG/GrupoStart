@@ -87,7 +87,7 @@ const NavBarV2 = ({ home = true, servicesDropdown = true }) => {
         onClick={() => setNav(!nav)}
         className={`${
           !nav && "hidden"
-        } sm:hidden bg-black/90 min-h-screen w-full fixed top-0 left-0 right-0 backdrop-blur-sm`}
+        } sm:hidden bg-black/90 min-h-screen w-full fixed top-0 left-0 right-0 backdrop-blur-sm z-10`}
       ></div>
 
       {/* SIDEBAR */}
