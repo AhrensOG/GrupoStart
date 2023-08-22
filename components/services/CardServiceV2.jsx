@@ -5,7 +5,7 @@ const CardServiceV2 = ({ title, description1, description2, description3,  urlSe
   const [hover, setHover] = useState(false)
   return (
     <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className='max-w-[350px]'>
-      <Link href={`/servicios/${urlService}`}>
+      <Link href={`/servicios/${urlService}`} target='_blank' rel='noopener noreferrer'>
         <div className='bg-white pb-8 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl rounded-br-3xl w-full flex flex-col justify-center items-center text-center h-[420px] relative'>
           <div className=
             {

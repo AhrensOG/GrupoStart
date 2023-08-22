@@ -52,7 +52,7 @@ const NavBarV2 = ({ home = true, servicesDropdown = true }) => {
               </h2>
             </Link>)
           }
-          <Link href={"/servicios/MarketingYRedes"}>
+          <Link href={"/"}>
             <h2 className="px-4 lg:px-6 text-xl font-semibold text-white hover:text-[#fb8a00] transition-all duration-200">
               Marketing
             </h2>
