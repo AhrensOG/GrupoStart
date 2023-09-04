@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../../components/navBar/NavBar'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import EmpresasCardPost from '../../components/empresas/empresasCardPost'
+import EmpresasCardPost from '../../components/empresas/EmpresasCardPost'
 import axios from 'axios'
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
