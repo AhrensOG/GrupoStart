@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import DropdownNavBar from "./auxComponents/DropdownNavBar";
 import SideBar from "./SideBar";
 
-const NavBar = ({ home = true, servicesDropdown = true }) => {
+const NavBar = ({ home = true, servicesDropdown = true, isFixed = true }) => {
   const [nav, setNav] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [burgerColor, setBurgerColor] = useState('white')
 
   return (
-    <div className="bg-[#0853fc] fixed top-0 w-full z-10 h-[80px] drop-shadow-2xl">
+    <div className={`bg-[#0853fc] ${isFixed ? 'fixed' : ''} top-0 w-full z-10 h-[80px] drop-shadow-2xl`}>
       {/* NAVBAR */}
 
       <div className="flex flex-row items-center h-full">

@@ -11,7 +11,6 @@ export default async function handler(req, res) {
   } else if(req.method === 'POST') {
     try {
       const { name, description, image } = req.body;
-      console.log(req.body.name)
       if(!name || !description || !image) {
         return res.status(400).json('Missing Data')
       }
