@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../../components/navBar/NavBar'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import EmpresasCardPost from '../../components/empresas/EmpresasCardPost'
+import EmpresasCardPost from '../../components/empresas/empresasCardPost'
 import axios from 'axios'
+
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const post = () => {
   const { asPath } = useRouter() 
@@ -20,7 +22,7 @@ const post = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/empresas/controller')
+        const res = await axios.get(`${SERVER_URL}/empresas/controller`)
         setEmpresas(res.data)
       } catch (error) {
         console.log(error.message)
@@ -36,7 +38,7 @@ const post = () => {
 
   const handleSubmit = async (e) => {
 
-    const data = await axios.post('http://localhost:3000/api/empresas/controller', {
+    const data = await axios.post(`${SERVER_URL}/empresas/controller`, {
       name: post.name,
       description: post.description,
       image: post.image
@@ -49,15 +51,14 @@ const post = () => {
       <Head>
         <title>GrupoStart</title>
       </Head>
-      <NavBar servicesDropdown={!navbarButtons}/>
-      <div className='flex flex-row top-[100px] fixed w-full h-full'>
-        <div className='basis-[40%] pl-10'>
+      <NavBar servicesDropdown={!navbarButtons} isFixed={false}/>
+      <div className='flex flex-row w-full h-full p-4 pt-8 gap-6'>
+        <div className='basis-[40%] w-full h-full '>
           {
             empresas.length === 0 
             ? <div>CARGANDO</div>
-            : <div>
+            : <div className='flex flex-col justify-center items-center w-full h-full gap-10'>
               {
-                
                 empresas?.map((emp) => {
                   return  <EmpresasCardPost key={emp.name} name={emp.name} description={emp.description} image={emp.image}/> 
                 })
@@ -65,11 +66,12 @@ const post = () => {
             </div>
           }
         </div>
-        <div className='flex flex-col pt-10 gap-6 items-center basis-[60%]'>
-          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2' name='name' type="text" placeholder='NOMBRE' />
-          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2' name='description' type="text" placeholder='DESCRIPCION' />
-          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2' name='image' type="text" placeholder='IMAGEN'/>
-          <button onClick={handleSubmit} >CREAR</button>
+        <div className='flex flex-col gap-6 p-4 pt-8 items-center basis-[60%] w-full h-full'>
+          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2 w-full h-full' name='name' type="text" placeholder='NOMBRE' />
+          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2 w-full h-full' name='image' type="text" placeholder='IMAGEN'/>
+          <textarea onChange={handleChange} className='border-gray-400 border rounded-lg p-2 w-full h-full' name='description' type="text" placeholder='DESCRIPCION' 
+          rows={5}/>
+          <button onClick={handleSubmit} className='border-gray-400 border rounded-lg p-2 w-[20%] font-roboto' >CREAR</button>
         </div>
       </div>
   
