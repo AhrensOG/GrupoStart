@@ -1,82 +1,95 @@
-import React, { useEffect, useState } from 'react'
-import NavBar from '../../components/navBar/NavBar'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import EmpresasCardPost from '../../components/empresas/EmpresasCardPost'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import NavBar from "../../components/navBar/NavBar";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import EmpresasCardPost from "../../components/empresas/auxComponents/EmpresasCardPost";
+import axios from "axios";
+import RefreshButton from "../../components/empresas/auxComponents/RefreshButton";
+import SkeletonLoader from "../../components/empresas/auxComponents/SkeletonLoader";
+import PostForm from "../../components/empresas/auxComponents/PostForm";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 
 const post = () => {
-  const { asPath } = useRouter() 
-  const navbarButtons = asPath === '/empresas'
+  const { asPath } = useRouter();
+  const navbarButtons = asPath === "/empresas";
 
-  const [empresas, setEmpresas] = useState([])
-  const [post, setPost] = useState({
-    name: '',
-    description: '',
-    image: ''
-  })
+  const skeletonLoader = [1, 2, 3, 4, 5]
+  const [empresas, setEmpresas] = useState([]);
+  const [refreshButton, setRefreshButton] = useState(false)
+  const [deletePost, setDeletePost] = useState(false)
+  const [updatePost, setUpdatePost] = useState(false)
 
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get(`${SERVER_URL}/empresas/controller`)
-        setEmpresas(res.data)
+        const res = await axios.get(`${SERVER_URL}/empresas/controller`);
+        setEmpresas(res.data);
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+      }
+    };
+    const deletPost = async () => {
+      try {
+        await axios.delete(`${SERVER_URL}/empresas/controller?id=${deletePost}`)
+      } catch (error) {
+        console.log(error)
       }
     }
-    getData()
-  }, [])
-
-  const handleChange = (e) => {
-    e.preventDefault()
-    setPost({ ...post ,[e.target.name]: e.target.value })
-  }
-
-  const handleSubmit = async (e) => {
-
-    const data = await axios.post(`${SERVER_URL}/empresas/controller`, {
-      name: post.name,
-      description: post.description,
-      image: post.image
-    })
-
-  }
+    if (refreshButton) {
+      setEmpresas([])
+      getData()
+      setRefreshButton(false)
+    }
+    if (deletePost) {
+      setDeletePost(false)
+      deletPost()
+      setEmpresas([])
+      getData()
+    }
+    getData();
+  }, [refreshButton, deletePost]);
 
   return (
     <div>
       <Head>
         <title>GrupoStart</title>
       </Head>
-      <NavBar servicesDropdown={!navbarButtons} isFixed={false}/>
-      <div className='flex flex-row w-full h-full p-4 pt-8 gap-6'>
-        <div className='basis-[40%] w-full h-full '>
-          {
-            empresas.length === 0 
-            ? <div>CARGANDO</div>
-            : <div className='flex flex-col justify-center items-center w-full h-full gap-10'>
-              {
-                empresas?.map((emp) => {
-                  return  <EmpresasCardPost key={emp.name} name={emp.name} description={emp.description} image={emp.image}/> 
-                })
-              }
-            </div>
-          }
+      <NavBar servicesDropdown={!navbarButtons} isFixed={false} />
+      <div className="flex flex-row w-full h-full p-4 pt-8 gap-6 ">
+        <div className="basis-[40%] relative overflow-scroll">
+          <div className="flex flex-col absolute justify-center items-center gap-10 w-full">
+            <RefreshButton setRefresh={setRefreshButton}/>
+            {
+              empresas.length === 0 
+              ? skeletonLoader?.map((l) => {
+                return (
+                  <SkeletonLoader key={l}/>
+                )
+              })
+              : empresas?.map((emp) => {
+                return (
+                  <EmpresasCardPost
+                    id={emp.id}
+                    key={emp.name}
+                    name={emp.name}
+                    description={emp.description}
+                    image={emp.image}
+                    setDeletePost={setDeletePost}
+                    setUpdatePost={setUpdatePost}
+                  />
+                );
+              })
+            }
+          </div>
         </div>
-        <div className='flex flex-col gap-6 p-4 pt-8 items-center basis-[60%] w-full h-full'>
-          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2 w-full h-full' name='name' type="text" placeholder='NOMBRE' />
-          <input onChange={handleChange} className='border-gray-400 border rounded-lg p-2 w-full h-full' name='image' type="text" placeholder='IMAGEN'/>
-          <textarea onChange={handleChange} className='border-gray-400 border rounded-lg p-2 w-full h-full' name='description' type="text" placeholder='DESCRIPCION' 
-          rows={5}/>
-          <button onClick={handleSubmit} className='border-gray-400 border rounded-lg p-2 w-[20%] font-roboto' >CREAR</button>
+        <div className="px-4 basis-[60%] w-full h-full">
+          <PostForm updatePost={updatePost} />
         </div>
       </div>
-  
     </div>
-  )
-}
+  );
+};
 
-export default post
+export default post;
