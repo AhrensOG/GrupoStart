@@ -3,8 +3,8 @@ import Empresas from "../../../db/models/empresas"
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const data = await Empresas.findAll()
-      return res.status(200).json(data)     
+      // const data = await Empresas.findAll()
+      return res.status(200).json('data')     
     } catch (error) {
       res.status(500).send({'ERROR': error})
     }
