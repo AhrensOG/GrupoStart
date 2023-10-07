@@ -32,8 +32,46 @@ export default async function handler(req, res) {
     }
     
   } else if(req.method === 'PUT') {
+    try {
+      const { id, name, description, image } = req.body;
+
+      if (!id) {
+        return res.status(400).send("An id is requeried");
+      } else {
+        if (name) {
+          await Empresas.update({ name }, { where: { id } });
+        }
+        if (description) {
+          await Empresas.update({ description }, { where: { id } });
+        }
+        if (image) {
+          await Empresas.update({ image }, { where: { id } });
+        }
+      }
+
+      const post = await Empresas.findByPk(id)
+      return res.status(200).send(post)
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
     
   } else if(req.method === 'DELETE') {
-    
+    try {
+      const { id } = req.query;
+      if(!id) {
+        return res.status(400).json('Missing Data')
+      }
+      const post = await Empresas.findByPk(id)
+      if(!post) {
+        return res.status(400).json('ID not found')
+      }
+      await Empresas.destroy({ where: { id } })
+      res.status(200).json("Deleted Successfull")
+
+
+
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
   }
 }
