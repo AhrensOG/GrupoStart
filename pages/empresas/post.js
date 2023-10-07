@@ -24,7 +24,7 @@ const post = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get(`${SERVER_URL}/empresas/controller`);
+        const res = await axios.get(`${SERVER_URL}`);
         setEmpresas(res.data);
       } catch (error) {
         console.log(error.message);
@@ -32,7 +32,7 @@ const post = () => {
     };
     const deletPost = async () => {
       try {
-        await axios.delete(`${SERVER_URL}/empresas/controller?id=${deletePost}`)
+        await axios.delete(`${SERVER_URL}?id=${deletePost}`)
       } catch (error) {
         console.log(error)
       }

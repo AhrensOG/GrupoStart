@@ -14,7 +14,7 @@ const PostForm = ({
   const handleSubmit = async (values, { resetForm }) => {
     try {
       document.getElementById('submitButton').disabled = true
-      await axios[action](`${SERVER_URL}/empresas/controller`, values);
+      await axios[action](`${SERVER_URL}`, values);
       document.getElementById('submitButton').disabled = false
 
       //if it's a new Post, reset form after saving it
@@ -48,75 +48,3 @@ const PostForm = ({
 };
 
 export default PostForm;
-
-{
-  /* <div>
-      {
-        updatePost ? (
-          <form id="form" className="flex flex-col gap-6 items-center">
-            <input
-              onChange={handleChange}
-              className="border-gray-400 border outline-none focus:border-transparent focus:ring-2 focus:ring-[#0853fc] rounded-lg p-2 w-full h-full"
-              name="name"
-              placeholder="NOMBRE"
-              value={putPost.name}
-            />
-            <input
-              onChange={handleChange}
-              className="border-gray-400 border outline-none focus:border-transparent focus:ring-2 focus:ring-[#0853fc] rounded-lg p-2 w-full h-full"
-              name="image"
-              placeholder="IMAGEN"
-              value={putPost.image}
-            />
-            <textarea
-              onChange={handleChange}
-              className="border-gray-400 border outline-none focus:border-transparent focus:ring-2 focus:ring-[#0853fc] rounded-lg p-2 w-full h-full"
-              name="description"
-              placeholder="DESCRIPCION"
-              rows={5}
-              value={putPost.description}
-            />
-            <button
-              id="updateButton"
-              onClick={handleUpdate}
-              className="border-gray-400 border rounded-lg p-2 w-[20%] font-roboto flex flex-row justify-center items-center"
-            >
-              Actualizar
-            </button>
-          </form>
-        ) : (
-          <form id="form" action="" className="flex flex-col gap-6 items-center">
-            <input
-              onChange={handleChange}
-              className="border-gray-400 border outline-none focus:border-transparent focus:ring-2 focus:ring-[#0853fc] rounded-lg p-2 w-full h-full"
-              name="name"
-              placeholder="NOMBRE"
-              value={putPost.name}
-            />
-            <input
-              onChange={handleChange}
-              className="border-gray-400 border outline-none focus:border-transparent focus:ring-2 focus:ring-[#0853fc] rounded-lg p-2 w-full h-full"
-              name="image"
-              placeholder="IMAGEN"
-              value={putPost.image}
-            />
-            <textarea
-              onChange={handleChange}
-              className="border-gray-400 border outline-none focus:border-transparent focus:ring-2 focus:ring-[#0853fc] rounded-lg p-2 w-full h-full"
-              name="description"
-              placeholder="DESCRIPCION"
-              rows={5}
-              value={putPost.description}
-            />
-            <button
-              id="submitButton"
-              onClick={handleSubmit}
-              className="border-gray-400 border rounded-lg p-2 w-[20%] font-roboto flex flex-row justify-center items-center"
-            >
-              CREAR
-            </button>
-          </form>
-        )
-      }
-    </div> */
-}
