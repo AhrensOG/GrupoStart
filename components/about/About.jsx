@@ -25,7 +25,7 @@ const aboutText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Obca
 
 const About = ( { listProfiles = profiles, about = aboutText } ) => {
   return (
-    <div className='bg-[#ff4300] flex flex-col py-8 px-4 md:flex-row-reverse gap-1'>
+    <div className='bg-[#fb8a00] flex flex-col py-8 px-4 md:flex-row-reverse gap-1'>
       <div className='pt-4 pb-10 md:pb-0 md:pt-0 md:basis-1/2'>
         <Image 
           src='/about.png'
@@ -37,7 +37,7 @@ const About = ( { listProfiles = profiles, about = aboutText } ) => {
       </div>
       <div className='flex flex-col justify-center items-center md:basis-1/2'>
         <div className='pb-8'>
-          <h1 className='text-5xl font-bold font-roboto text-white border-b-4 border-b-[#0b52c3] pb-2'>Nosotros</h1>
+          <h1 className='text-5xl font-bold font-roboto text-white border-b-4 border-b-[#0853fc] pb-2'>Nosotros</h1>
         </div>
         <div>
           <p className='font-roboto text-lg  text-white text-center'>

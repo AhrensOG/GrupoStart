@@ -6,7 +6,7 @@ const DropdownSideBar = ({ setIsOpen, isOpen }) => {
     <div onMouseLeave={() => setIsOpen(false)} className="w-full">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="mb-1 w-full px-2 text-2xl font-semibold text-white hover:text-[#ff6c36] border-2 rounded-lg hover:border-[#ff6c36] transition-all duration-200 flex flex-row justify-between items-center gap-16"
+                className="mb-1 w-full px-2 text-2xl font-semibold text-white hover:text-[#fb8a00] border-2 rounded-lg hover:border-[#fb8a00] transition-all duration-200 flex flex-row justify-between items-center gap-16"
               >
                 Servicios
                 {isOpen ? (
@@ -42,22 +42,22 @@ const DropdownSideBar = ({ setIsOpen, isOpen }) => {
                 )}
               </button>
               {isOpen && (
-                <div className="flex flex-col gap-1 px-[7px] py-2 rounded-lg bg-[#ff6c36]">
-                  <Link href={"/servicios/communitymanager"}>
-                    <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#ff8b61] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
-                      Community Manager
+                <div className="flex flex-col gap-1 px-[7px] py-2 rounded-lg bg-[#fb8a00]">
+                  <Link href={"/servicios/MarketingYRedes"}>
+                    <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
+                      Marketing y Redes
                     </h2>
                   </Link>
-                  <Link href={"/servicios/desarrolloweb"}>
-                    <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#ff8b61] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
+                  <Link href={"/servicios/DesarrolloWeb"}>
+                    <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
                       Desarrollo Web
                     </h2>
                   </Link>
-                  <Link href={"/servicios/marketingdigital"}>
-                    <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#ff8b61] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
+                  {/* <Link href={"/servicios/MarketingDigital"}>
+                    <h2 className="font-semibold text-white py-1 pr-2 hover:bg-[#f39f38] rounded-r-lg border-l-4 border-transparent hover:border-l-[#0b52c3]">
                       Marketing Digital
                     </h2>
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>
