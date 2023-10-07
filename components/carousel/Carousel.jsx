@@ -36,7 +36,7 @@ const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000 
   },[])
 
   return (
-    <div className='h-[300px] sm:h-[400px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border'>
+    <div className='h-[300px] sm:h-[400px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border mt-[80px]'>
       <div className="h-[300px] sm:h-[400px] md:h-[500px] w-full m-auto relative group">
         <div
           style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
