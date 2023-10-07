@@ -1,4 +1,4 @@
-// import Empresas from "../../../db/models/empresas"
+import Empresas from "../../../db/models/empresas"
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
