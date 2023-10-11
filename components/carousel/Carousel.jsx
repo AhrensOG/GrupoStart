@@ -19,7 +19,7 @@ const images = [
   },
 ];
 
-const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000 }) => {
+const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000, title = 'Mi Negocio', subtitle= 'Soluciones creativas, resultados creativos.', marginTop = 80 }) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -36,18 +36,19 @@ const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000 
   },[])
 
   return (
-    <div className='h-[300px] sm:h-[400px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border mt-[80px]'>
+    <div className={`h-[300px] sm:h-[400px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border mt-[${marginTop}px]`}>
       <div className="h-[300px] sm:h-[400px] md:h-[500px] w-full m-auto relative group">
         <div
-          style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-          className="w-full h-full bg-center bg-cover bg-origin-border duration-500"
+          // style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+          className="relative w-full h-full bg-center bg-cover bg-origin-border duration-500"
         >
-          <div className="bg-black/40 h-[300px] sm:h-[400px] md:h-[500px] w-full flex flex-col justify-center items-center">
+          <img src={slides[currentIndex]?.url} alt="" className="absolute w-full h-full object-cover object-center duration-500" />
+          <div className="absolute bg-black/40 h-[300px] sm:h-[400px] md:h-[500px] w-full flex flex-col justify-center items-center">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white py-2">
-            Mi Negocio
-          </h1>
+              {title}
+            </h1>
             <h2 className="text-xl sm:text-2xl md:text-3xl text-white py-2 text-center">
-              Soluciones creativas, resultados creativos.
+              {subtitle}
             </h2>
           </div>
         </div>
