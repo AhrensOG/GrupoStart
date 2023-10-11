@@ -8,6 +8,7 @@ import ListCompanyCards from '../../components/listCompanyCards/ListCompanyCards
 import { useRouter } from 'next/router'
 import Wsp from '../../components/whatsapp/Wsp'
 import Head from 'next/head'
+import Map from '../../components/map/Map'
 
 const Empresas = () => {
   const { asPath } = useRouter() 
@@ -24,6 +25,7 @@ const Empresas = () => {
       <ListCompanyCards/>
       <Footer/>
       <Wsp/>
+      <Map/>
     </div>
   )
 }
