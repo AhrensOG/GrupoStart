@@ -32,7 +32,7 @@ const exclusive = () => {
       <NavBar servicesDropdown={!navbarButtons} isFixed={false} />
       <div className="flex flex-col justify-center items-center w-full h-full">
         <div className="w-full h-full">
-          <Image src={'/TJP.jpg'} width={1000} height={1000} alt="IMG" className="w-full h-full" priority/>
+          <Image src={'/QR/DraHectardelCarmenAvalos.svg'} width={1000} height={1000} alt="IMG" className="w-full h-full" priority/>
         </div>
         <div className="w-full h-full bg-white flex flex-row justify-evenly items-center py-4">
           <Image src={"/ig.svg"} width={50} height={50} alt="ig" />
