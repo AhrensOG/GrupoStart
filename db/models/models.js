@@ -1,5 +1,5 @@
 import Empresas from './empresas'
-import BusinessImages from './businessimages'
+import BusinessImages from './businessImages'
 import User from './user'
 
 
