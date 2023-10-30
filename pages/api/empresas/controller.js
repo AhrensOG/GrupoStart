@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     }
   } else if(req.method === 'POST') {
     try {
-      const { name, description, firstImage } = req.body;
-      if(!name || !description || !firstImage) {
+      const { name, description, firstImage, exclusiveImage, qrImage, whatsappLink, facebookLink, mapLink } = req.body;
+      if(!name || !description || !firstImage | !exclusiveImage | !qrImage) {
         return res.status(400).json('Missing Data')
       }
 
@@ -29,8 +29,14 @@ export default async function handler(req, res) {
       await Empresas.create({
         name,
         description,
-        firstImage
-      })
+        firstImage,
+        exclusiveImage,
+        qrImage,
+        whatsappLink,
+        facebookLink,
+        mapLink
+      })  
+
 
       const created = await Empresas.findOne({where: { name }})
 
@@ -44,7 +50,7 @@ export default async function handler(req, res) {
     
   } else if(req.method === 'PUT') {
     try {
-      const { id, name, description, firstImage } = req.body;
+      const { id, name, description, firstImage, exclusiveImage, qrImage, whatsappLink, facebookLink, mapLink } = req.body;
 
       if (!id) {
         return res.status(400).send("An id is requeried");
@@ -57,6 +63,21 @@ export default async function handler(req, res) {
         }
         if (firstImage) {
           await Empresas.update({ firstImage }, { where: { id } });
+        }
+        if (exclusiveImage) {
+          await Empresas.update({ exclusiveImage }, { where: { id } });
+        }
+        if (qrImage) {
+          await Empresas.update({ qrImage }, { where: { id } });
+        }
+        if (whatsappLink) {
+          await Empresas.update({ whatsappLink }, { where: { id } });
+        }
+        if (facebookLink) {
+          await Empresas.update({ facebookLink }, { where: { id } });
+        }
+        if (mapLink) {
+          await Empresas.update({ mapLink }, { where: { id } });
         }
       }
 
