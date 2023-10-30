@@ -25,6 +25,26 @@ const emrpesasInit = (sequelize, DataTypes) => {
     firstImage: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    exclusiveImage: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    qrImage: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    whatsappLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    facebookLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    mapLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     }
   }, {
     sequelize,
