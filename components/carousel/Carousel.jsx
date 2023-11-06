@@ -22,6 +22,7 @@ const images = [
 const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000, title = 'Mi Negocio', subtitle= 'Soluciones creativas, resultados creativos.', marginTop = 80 }) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [stopAutoSlide, setStopAutoSlide ] = useState(false)
 
   const prevSlide = () => 
   setCurrentIndex((curr) => curr === 0 ? slides.length - 1 : curr - 1)
@@ -31,26 +32,27 @@ const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000,
 
   useEffect(() => {
     if(!autoSlide) return
+    if(stopAutoSlide) return
     const slideInterval = setInterval(nextSlide, autoSlideInterval)
     return () => clearInterval(slideInterval)
-  },[])
+  },[stopAutoSlide])
 
   return (
-    <div className={`h-[300px] sm:h-[400px] md:h-[500px] bg-cover bg-no-repeat bg-center bg-origin-border mt-[${marginTop}px]`}>
-      <div className="h-[300px] sm:h-[400px] md:h-[500px] w-full m-auto relative group">
+    <div className={`h-[450px] sm:h-[550px] md:h-[650px] bg-cover bg-no-repeat bg-center bg-origin-border mt-[${marginTop}px]`}>
+      <div className="h-[450px] sm:h-[550px] md:h-[650px] w-full m-auto relative group">
         <div
           // style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
           className="relative w-full h-full bg-center bg-cover bg-origin-border duration-500"
         >
-          <img src={slides[currentIndex]?.url} alt="" className="absolute w-full h-full object-cover object-center duration-500" />
-          <div className="absolute bg-black/40 h-[300px] sm:h-[400px] md:h-[500px] w-full flex flex-col justify-center items-center">
+          <img onMouseDown={() => setStopAutoSlide(true)} onMouseUp={() => setStopAutoSlide(false)} src={slides[currentIndex]?.url} alt="" className="absolute hover:cursor-pointer w-full h-full object- object-center duration-500" />
+          {/* <div className="absolute bg-black/0 h-[450px] sm:h-[550px] md:h-[650px] w-full flex flex-col justify-center items-center">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white py-2">
               {title}
             </h1>
             <h2 className="text-xl sm:text-2xl md:text-3xl text-white py-2 text-center">
               {subtitle}
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* Left Arrow */}
         <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
