@@ -75,7 +75,7 @@ const post = () => {
                     key={emp.name}
                     name={emp.name}
                     description={emp.description}
-                    image={emp.image}
+                    image={emp.firstImage}
                     setDeletePost={setDeletePost}
                     setUpdatePost={setUpdatePost}
                   />
