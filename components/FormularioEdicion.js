@@ -79,7 +79,6 @@ const EditarEmpresa = () => {
         const storageRefMainImage = ref(storage, `main_images/${formData.firstImage.name}`);
         await uploadBytes(storageRefMainImage, formData.firstImage);
         const downloadURLMainImage = await getDownloadURL(storageRefMainImage);
-
         formData.firstImage = downloadURLMainImage;
       }
 
@@ -94,7 +93,7 @@ const EditarEmpresa = () => {
       const imageURLs = await Promise.all(uploadTasks);
 
       formData.carouselImages = imageURLs;
-
+      console.log(formData)
       const response = await axios.put('/api/empresas/controller', formData);
       console.log('Empresa editada:', response.data);
     } catch (error) {

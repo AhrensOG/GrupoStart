@@ -1,5 +1,5 @@
-import { BusinessImages } from "../../../db/models/businessImages";
-import { Empresas } from "../../../db/models/empresas";
+import { BusinessImages } from "../../../db/models/models";
+import { Empresas } from "../../../db/models/models";
 
 
 export default async function handler(req, res) {
