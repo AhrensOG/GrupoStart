@@ -18,6 +18,21 @@ module.exports = {
       firstImage: {
         type: Sequelize.TEXT
       },
+      exclusiveImage: {
+        type: Sequelize.TEXT
+      },
+      qrImage: {
+        type: Sequelize.TEXT
+      },
+      whatsappLink: {
+        type: Sequelize.TEXT
+      },
+      facebookLink: {
+        type: Sequelize.TEXT
+      },
+      mapLink: {
+        type: Sequelize.TEXT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
