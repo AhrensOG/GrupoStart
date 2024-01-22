@@ -1,13 +1,13 @@
 import Empresas from './empresas'
 import BusinessImages from './businessImages'
 import User from './user'
+import connection from '.'
 
 
 Empresas.hasMany(BusinessImages, { foreignKey: 'BusinessID' })
 BusinessImages.belongsTo(Empresas, { foreignKey: 'BusinessID' })
 
-Empresas.sync({ alter: true })
-BusinessImages.sync({ alter: true })
+connection.sync({ alter: true })
 
 
 export { 

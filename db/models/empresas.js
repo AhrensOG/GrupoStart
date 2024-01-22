@@ -26,15 +26,7 @@ const emrpesasInit = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    exclusiveImage: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    qrImage: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    whatsappLink: {
+    instagramLink: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
@@ -42,10 +34,18 @@ const emrpesasInit = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    mapLink: {
+    mapsLink: {
       type: DataTypes.TEXT,
       allowNull: true,
-    }
+    },
+    whatsappLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    categories: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
   }, {
     sequelize,
     modelName: 'Empresas',

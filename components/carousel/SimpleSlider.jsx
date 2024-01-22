@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Card from "./Card";
 
 const SimpleSlider = () => {
+  const [empresas, setEmpresas] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/empresas/controller');
+        const data = response.data;
+        setEmpresas(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const scrollLeft = () => {
     document.getElementById('content').scrollLeft -= 305;
-  }
+  };
 
   const scrollRight = () => {
     document.getElementById('content').scrollLeft += 305;
-  }
+  };
 
   return (
     <div className="relative group">
@@ -50,13 +66,14 @@ const SimpleSlider = () => {
         </svg>
       </div>
       <div id="content" className="px-4 py-10 carousel flex flex-row gap-4 items-center justify-start overflow-x-auto w-full scroll-smooth">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {empresas.map((empresa) => (
+          <Card
+            key={empresa.id}
+            imageUrl={empresa.firstImage}
+            name={empresa.name}
+            description={empresa.description}
+          />
+        ))}
       </div>
     </div>
   );

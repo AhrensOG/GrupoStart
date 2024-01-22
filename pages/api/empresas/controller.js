@@ -1,9 +1,19 @@
-import { Empresas } from "../../../db/models/models"
-import { BusinessImages } from "../../../db/models/models"
+import { BusinessImages } from "../../../db/models/businessImages";
+import { Empresas } from "../../../db/models/empresas";
+
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
+      const { name , id } = req.query;
+      if ( name ) {
+        const business = await Empresas.findOne({ where: { name }, include: { model: BusinessImages } })
+        return res.status(200).json(business) 
+      }
+      if ( id ) {
+        const business = await Empresas.findOne({ where: { id }, include: { model: BusinessImages } })
+        return res.status(200).json(business) 
+      }
       const data = await Empresas.findAll({
         include: {
           all: true
@@ -15,8 +25,8 @@ export default async function handler(req, res) {
     }
   } else if(req.method === 'POST') {
     try {
-      const { name, description, firstImage, exclusiveImage, qrImage, whatsappLink, facebookLink, mapLink } = req.body;
-      if(!name || !description || !firstImage | !exclusiveImage | !qrImage) {
+      const { name, description, firstImage, instagramLink, facebookLink, mapsLink, whatsappLink, categories, } = req.body;
+      if(!name || !description || !firstImage ) {
         return res.status(400).json('Missing Data')
       }
 
@@ -30,80 +40,75 @@ export default async function handler(req, res) {
         name,
         description,
         firstImage,
-        exclusiveImage,
-        qrImage,
-        whatsappLink,
+        instagramLink,
         facebookLink,
-        mapLink
-      })  
+        mapsLink,
+        whatsappLink,
+        categories
+      })
 
+      const createdWithImages = await Empresas.findOne({where: { name }, include: { model: BusinessImages }})
 
-      const created = await Empresas.findOne({where: { name }})
-
-      created
-      ? res.status(200).json(created)
+      createdWithImages
+      ? res.status(200).json(createdWithImages)
       : res.status(400).json("Error creating the post");
 
     } catch (error) {
       return res.status(500).json(error.message)
     }
     
-  } else if(req.method === 'PUT') {
+  } else if (req.method === 'PUT') {
     try {
-      const { id, name, description, firstImage, exclusiveImage, qrImage, whatsappLink, facebookLink, mapLink } = req.body;
-
-      if (!id) {
-        return res.status(400).send("An id is requeried");
-      } else {
-        if (name) {
-          await Empresas.update({ name }, { where: { id } });
-        }
-        if (description) {
-          await Empresas.update({ description }, { where: { id } });
-        }
-        if (firstImage) {
-          await Empresas.update({ firstImage }, { where: { id } });
-        }
-        if (exclusiveImage) {
-          await Empresas.update({ exclusiveImage }, { where: { id } });
-        }
-        if (qrImage) {
-          await Empresas.update({ qrImage }, { where: { id } });
-        }
-        if (whatsappLink) {
-          await Empresas.update({ whatsappLink }, { where: { id } });
-        }
-        if (facebookLink) {
-          await Empresas.update({ facebookLink }, { where: { id } });
-        }
-        if (mapLink) {
-          await Empresas.update({ mapLink }, { where: { id } });
-        }
+      const { id, description, instagramLink, facebookLink, mapsLink, whatsappLink, categories } = req.body;
+      
+      if (!id || !description) {
+        return res.status(400).json('Missing Data');
       }
-
-      const post = await Empresas.findByPk(id)
-      return res.status(200).send(post)
+  
+      const business = await Empresas.findByPk(id);
+  
+      if (!business) {
+        return res.status(404).json("Business not found");
+      }
+  
+      // Actualizar los campos de la empresa
+      business.description = description;
+      business.instagramLink = instagramLink;
+      business.facebookLink = facebookLink;
+      business.mapsLink = mapsLink;
+      business.whatsappLink = whatsappLink;
+      business.categories = categories;
+  
+      await business.save();
+  
+      const updatedWithImages = await Empresas.findOne({
+        where: { id },
+        include: { model: BusinessImages },
+      });
+  
+      return res.status(200).json(updatedWithImages);
     } catch (error) {
-      return res.status(500).json(error.message)
+      console.error(error);
+      return res.status(500).json(error.message);
     }
-    
-  } else if(req.method === 'DELETE') {
+  } else if (req.method === 'DELETE') {
     try {
       const { id } = req.query;
-      if(!id) {
-        return res.status(400).json('Missing Data')
+      if (!id) {
+        return res.status(400).json('Missing Data');
       }
-      const post = await Empresas.findByPk(id)
-      if(!post) {
-        return res.status(400).json('ID not found')
+      const business = await Empresas.findByPk(id);
+      if (!business) {
+        return res.status(400).json('ID not found');
       }
-      await Empresas.destroy({ where: { id } })
-      res.status(200).json("Deleted Successfull")
-
-
-
+  
+      // Eliminar imágenes asociadas al negocio antes de borrar la empresa
+      await BusinessImages.destroy({ where: { EmpresaId: id } });
+  
+      await Empresas.destroy({ where: { id } });
+      res.status(200).json("Deleted Successfully");
     } catch (error) {
-      return res.status(500).json(error.message)
+      return res.status(500).json(error.message);
     }
   }
 }
