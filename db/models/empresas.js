@@ -25,7 +25,27 @@ const emrpesasInit = (sequelize, DataTypes) => {
     firstImage: {
       type: DataTypes.TEXT,
       allowNull: false,
-    }
+    },
+    instagramLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    facebookLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    mapsLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    whatsappLink: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    categories: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
   }, {
     sequelize,
     modelName: 'Empresas',

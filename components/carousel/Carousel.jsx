@@ -44,7 +44,8 @@ const Carousel = ({slides = images, autoSlide = false, autoSlideInterval = 3000,
           // style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
           className="relative w-full h-full bg-center bg-cover bg-origin-border duration-500"
         >
-          <img onMouseDown={() => setStopAutoSlide(true)} onMouseUp={() => setStopAutoSlide(false)} src={slides[currentIndex]?.url} alt="" className="absolute hover:cursor-pointer w-full h-full object- object-center duration-500" />
+           <img onContextMenu={(e) => e.preventDefault()} onTouchStart={() => setStopAutoSlide(true)} onTouchEnd={() => setStopAutoSlide(false)} src={slides[currentIndex]?.url} alt="" className="absolute hover:cursor-pointer w-full h-full object- object-center duration-500" />
+           {/* <img onMouseEnter={() => setStopAutoSlide(true)} onMouseLeave={() => setStopAutoSlide(false)} src={slides[currentIndex]?.url} alt="" className="absolute hover:cursor-pointer w-full h-full object- object-center duration-500" /> */}
           {/* <div className="absolute bg-black/0 h-[450px] sm:h-[550px] md:h-[650px] w-full flex flex-col justify-center items-center">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white py-2">
               {title}
