@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from "../components/navBar/NavBar";
+
 import axios from 'axios';
 import {
   getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from 'firebase/storage';
 import { app } from './firebase/firebase';
 
@@ -42,58 +43,53 @@ const EditarEmpresa = () => {
     fetchCompanies();
   }, []);
 
+  const fetchCompanyData = async (companyId) => {
+    try {
+      const response = await axios.get(`/api/empresas/controller?id=${companyId}`);
+      const empresa = response.data;
+
+      setFormData({
+        id: empresa.id,
+        name: empresa.name,
+        description: empresa.description,
+        firstImage: null,
+        instagramLink: empresa.instagramLink,
+        facebookLink: empresa.facebookLink,
+        mapsLink: empresa.mapsLink,
+        whatsappLink: empresa.whatsappLink,
+        categories: empresa.categories,
+        carouselImages: empresa.BusinessImages,
+      });
+    } catch (error) {
+      console.error('Error al obtener datos de la empresa:', error);
+    }
+  };
+
   const handleCompanyChange = async (e) => {
     const companyId = e.target.value;
     setSelectedCompanyId(companyId);
 
     if (companyId) {
-      try {
-        const response = await axios.get(`/api/empresas/controller?id=${companyId}`);
-        const empresa = response.data;
-
-        setFormData({
-          id: empresa.id,
-          name: empresa.name,
-          description: empresa.description,
-          firstImage: null,
-          instagramLink: empresa.instagramLink,
-          facebookLink: empresa.facebookLink,
-          mapsLink: empresa.mapsLink,
-          whatsappLink: empresa.whatsappLink,
-          categories: empresa.categories,
-          carouselImages: empresa.BusinessImages,
-        });
-      } catch (error) {
-        console.error('Error al obtener datos de la empresa:', error);
-      }
+      await fetchCompanyData(companyId);
     }
   };
 
   const handleEditClick = async () => {
     try {
       setLoading(true);
-
       const storage = getStorage(app);
 
       if (formData.firstImage) {
-        const storageRefMainImage = ref(storage, `main_images/${formData.firstImage.name}`);
-        await uploadBytes(storageRefMainImage, formData.firstImage);
-        const downloadURLMainImage = await getDownloadURL(storageRefMainImage);
-        formData.firstImage = downloadURLMainImage;
+        await updateMainImage(storage);
       }
 
-      const uploadTasks = formData.carouselImages.map(async (file) => {
-        const storageRef = ref(storage, `carousel_images/${file.name}`);
-        await uploadBytes(storageRef, file);
+      await updateCarouselImages(storage);
 
-        const downloadURL = await getDownloadURL(storageRef);
-        return { name: file.name, url: downloadURL };
-      });
+      // Elimina la línea que establece firstImage en null para evitar el problema
+      // formData.firstImage = null;
 
-      const imageURLs = await Promise.all(uploadTasks);
+      console.log(formData);
 
-      formData.carouselImages = imageURLs;
-      console.log(formData)
       const response = await axios.put('/api/empresas/controller', formData);
       console.log('Empresa editada:', response.data);
     } catch (error) {
@@ -101,6 +97,27 @@ const EditarEmpresa = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const updateMainImage = async (storage) => {
+    const storageRefMainImage = ref(storage, `main_images/${formData.firstImage.name}`);
+    await uploadBytes(storageRefMainImage, formData.firstImage);
+    const downloadURLMainImage = await getDownloadURL(storageRefMainImage);
+    formData.firstImage = downloadURLMainImage;
+  };
+
+  const updateCarouselImages = async (storage) => {
+    const uploadTasks = formData.carouselImages.map(async (file) => {
+      const storageRef = ref(storage, `carousel_images/${file.name}`);
+      await uploadBytes(storageRef, file);
+
+      const downloadURL = await getDownloadURL(storageRef);
+      return { name: file.name, url: downloadURL };
+    });
+
+    const imageURLs = await Promise.all(uploadTasks);
+
+    formData.carouselImages = imageURLs;
   };
 
   const handleChange = (e) => {
@@ -142,15 +159,32 @@ const EditarEmpresa = () => {
     setFormData((prevData) => ({ ...prevData, firstImage: image }));
   };
 
-  const handleRemoveImage = (index) => {
-    const updatedImages = [...formData.carouselImages];
-    updatedImages.splice(index, 1);
-    setFormData((prevData) => ({ ...prevData, carouselImages: updatedImages }));
+  const handleRemoveImage = async (index) => {
+    try {
+      const removedImage = formData.carouselImages[index];
+
+      if (!removedImage) {
+        console.error('Error: Image not found');
+        return;
+      }
+
+      // Eliminar la imagen del servidor y de Firebase Storage
+      await axios.delete(`/api/imagenempresas/${removedImage.id}`);
+      const storage = getStorage(app);
+      const storageRef = ref(storage, `carousel_images/${removedImage.name}`);
+      await deleteObject(storageRef);
+
+      const updatedImages = formData.carouselImages.filter((_, i) => i !== index);
+      setFormData((prevData) => ({ ...prevData, carouselImages: updatedImages }));
+    } catch (error) {
+      console.error('Error al eliminar la imagen:', error);
+    }
   };
+  
 
   return (
     <div>
-      <NavBar />
+      
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -237,22 +271,27 @@ const EditarEmpresa = () => {
         </div>
 
         <div style={{ marginBottom: '15px' }}>
-          <label>
-            Imágenes para el Carrusel:
-            <input type="file" name="carouselImages" onChange={handleImageChange} multiple accept="image/*" />
-          </label>
-          <div>
-            Imágenes Actuales:
-            {formData.carouselImages.map((image, index) => (
+        <label>
+          Imágenes para el Carrusel:
+          <input type="file" name="carouselImages" onChange={handleImageChange} multiple accept="image/*" />
+        </label>
+        <div>
+          Imágenes Actuales:
+          {formData.carouselImages.length === 0 ? (
+            <p>No hay imágenes</p>
+          ) : (
+            formData.carouselImages.map((image, index) => (
               <div key={index}>
-                {image.name} - <img src={image.url} alt={`carousel-${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+                {image.name} -{' '}
+                <img src={image.url} alt={`carousel-${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
                 <button type="button" onClick={() => handleRemoveImage(index)}>
                   Eliminar
                 </button>
               </div>
-            ))}
-          </div>
+            ))
+          )}
         </div>
+      </div>
 
         <div>
           <button type="submit" disabled={loading}>

@@ -33,7 +33,7 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="bg-[#fb8a00] flex flex-col justify-center items-center px-4 py-10"
+       className=" absolute top-[100%] left-[0%]  h-[120%] bg-blue-500 w-full "
     >
       <div className="pb-8">
         <h1 className="font-roboto text-5xl text-white font-semibold border-b-4 border-b-[#0853fc] pb-2">

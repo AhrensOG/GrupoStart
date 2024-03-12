@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NavBar from "../components/navBar/NavBar";
+
 import { useRouter } from 'next/router';
 import {
   getStorage,
@@ -141,7 +141,7 @@ const FormularioCliente = () => {
 
   return (
     <div>
-      <NavBar />
+     
       <form
         onSubmit={(e) => {
           e.preventDefault();
