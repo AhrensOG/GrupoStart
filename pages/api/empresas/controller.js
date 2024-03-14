@@ -1,114 +1,166 @@
-import { BusinessImages } from "../../../db/models/businessImages";
-import { Empresas } from "../../../db/models/empresas";
-
+// controller.js
+import { BusinessImages, Empresas } from "../../../db/models/models";
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    try {
-      const { name , id } = req.query;
-      if ( name ) {
-        const business = await Empresas.findOne({ where: { name }, include: { model: BusinessImages } })
-        return res.status(200).json(business) 
-      }
-      if ( id ) {
-        const business = await Empresas.findOne({ where: { id }, include: { model: BusinessImages } })
-        return res.status(200).json(business) 
-      }
-      const data = await Empresas.findAll({
-        include: {
-          all: true
-        }
-      })
-      return res.status(200).json(data)     
-    } catch (error) {
-      res.status(500).json(error.message)
+  try {
+    switch (req.method) {
+      case 'GET':
+        return handleGetRequest(req, res);
+
+      case 'POST':
+        return handlePostRequest(req, res);
+
+      case 'PUT':
+        return handlePutRequest(req, res);
+
+      case 'DELETE':
+        return handleDeleteRequest(req, res);
+
+      default:
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-  } else if(req.method === 'POST') {
-    try {
-      const { name, description, firstImage, instagramLink, facebookLink, mapsLink, whatsappLink, categories, } = req.body;
-      if(!name || !description || !firstImage ) {
-        return res.status(400).json('Missing Data')
-      }
-
-      const exist = await Empresas.findOne({ where: {name} })
-
-      if (exist){
-        return res.status(400).json('The Business already exist')
-      } 
-
-      await Empresas.create({
-        name,
-        description,
-        firstImage,
-        instagramLink,
-        facebookLink,
-        mapsLink,
-        whatsappLink,
-        categories
-      })
-
-      const createdWithImages = await Empresas.findOne({where: { name }, include: { model: BusinessImages }})
-
-      createdWithImages
-      ? res.status(200).json(createdWithImages)
-      : res.status(400).json("Error creating the post");
-
-    } catch (error) {
-      return res.status(500).json(error.message)
-    }
-    
-  } else if (req.method === 'PUT') {
-    try {
-      const { id, description, instagramLink, facebookLink, mapsLink, whatsappLink, categories } = req.body;
-      
-      if (!id || !description) {
-        return res.status(400).json('Missing Data');
-      }
-  
-      const business = await Empresas.findByPk(id);
-  
-      if (!business) {
-        return res.status(404).json("Business not found");
-      }
-  
-      // Actualizar los campos de la empresa
-      business.description = description;
-      business.instagramLink = instagramLink;
-      business.facebookLink = facebookLink;
-      business.mapsLink = mapsLink;
-      business.whatsappLink = whatsappLink;
-      business.categories = categories;
-  
-      await business.save();
-  
-      const updatedWithImages = await Empresas.findOne({
-        where: { id },
-        include: { model: BusinessImages },
-      });
-  
-      return res.status(200).json(updatedWithImages);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json(error.message);
-    }
-  } else if (req.method === 'DELETE') {
-    try {
-      const { id } = req.query;
-      if (!id) {
-        return res.status(400).json('Missing Data');
-      }
-      const business = await Empresas.findByPk(id);
-      if (!business) {
-        return res.status(400).json('ID not found');
-      }
-  
-      // Eliminar imágenes asociadas al negocio antes de borrar la empresa
-      await BusinessImages.destroy({ where: { EmpresaId: id } });
-  
-      await Empresas.destroy({ where: { id } });
-      res.status(200).json("Deleted Successfully");
-    } catch (error) {
-      return res.status(500).json(error.message);
-    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
   }
 }
+
+const handleGetRequest = async (req, res) => {
+  const { name, id } = req.query;
+
+  if (!Empresas) {
+    return res.status(500).json("Empresas model is not defined");
+  }
+
+  if (name || id) {
+    const business = await Empresas.findOne({
+      where: { ...(name ? { name } : { id }) },
+      include: BusinessImages,
+    });
+
+    if (!business) {
+      return res.status(404).json("Business not found");
+    }
+
+    return res.status(200).json(business);
+  }
+
+  const data = await Empresas.findAll({
+    include: { all: true }
+  });
+
+  return res.status(200).json(data);
+};
+
+const handlePostRequest = async (req, res) => {
+  try {
+    const { name, description, firstImage, instagramLink, facebookLink, mapsLink, whatsappLink, categories } = req.body;
+
+    // Validar campos requeridos
+    if (!name || !firstImage) {
+      return res.status(400).json({ error: 'Datos faltantes' });
+    }
+
+    // Verificar si ya existe un negocio con el mismo nombre
+    const exist = await Empresas.findOne({ where: { name } });
+
+    if (exist) {
+      return res.status(400).json({ error: 'El negocio ya existe' });
+    }
+
+    // Crear el negocio
+    const createdBusiness = await Empresas.create({
+      name,
+      description,
+      firstImage,
+      instagramLink,
+      facebookLink,
+      mapsLink,
+      whatsappLink,
+      categories
+    });
+
+    // Obtener el negocio creado con las imágenes asociadas
+    const createdWithImages = await Empresas.findOne({
+      where: { id: createdBusiness.id },
+      include: BusinessImages
+    });
+
+    // Devolver el resultado
+    return res.status(200).json(createdWithImages || createdBusiness);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const handlePutRequest = async (req, res) => {
+
+    const { id, firstImage, description, instagramLink, facebookLink, mapsLink, whatsappLink, categories } = req.body;
+
+    if (!id || !description) {
+      return res.status(400).json('Missing Data');
+    }
+    
+
+    const business = await Empresas.findByPk(id);
+
+    if (!business) {
+      return res.status(404).json("Business not found");
+    }
+    if (firstImage) {
+      business.firstImage = firstImage;
+    }
+    // Actualizar los campos de la empresa
+    business.description = description;
+    business.instagramLink = instagramLink;
+    business.facebookLink = facebookLink;
+    business.mapsLink = mapsLink;
+    business.whatsappLink = whatsappLink;
+    business.categories = categories;
+
+    await business.save();
+
+};
+
+const handleDeleteRequest = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    if (!id) {
+      return res.status(400).json('Missing Data');
+    }
+
+    // Comprobamos si la columna BusinessImages.EmpresaId existe
+    const hasEmpresaIdColumn = 'EmpresaId' in BusinessImages.rawAttributes;
+
+    if (hasEmpresaIdColumn) {
+      // Si la columna existe, eliminamos la empresa y las imágenes asociadas
+      const business = await Empresas.findByPk(id);
+
+      if (!business) {
+        return res.status(404).json('Business not found');
+      }
+
+      const images = await BusinessImages.findAll({ where: { EmpresaId: id } });
+      await Promise.all(images.map(async (image) => image.destroy()));
+      await business.destroy();
+
+      return res.status(200).json('Deleted Successfully');
+    } else {
+      // Si la columna no existe, eliminamos solo la empresa
+      const business = await Empresas.findByPk(id);
+
+      if (!business) {
+        return res.status(404).json('Business not found');
+      }
+
+      await business.destroy();
+
+      return res.status(200).json('Deleted Successfully');
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
+  }
+};

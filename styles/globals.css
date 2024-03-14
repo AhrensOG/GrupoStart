@@ -11,6 +11,16 @@
   }
 }
 
+@layer utilities {
+  .borde-superior-izquierdo {
+    border-top-left-radius: 15px;
+  }
+
+  .borde-inferior-derecho {
+    border-bottom-right-radius: 15px;
+  }
+}
+
 html,
 body {
   padding: 0;

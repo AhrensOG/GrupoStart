@@ -3,6 +3,7 @@ import Head from 'next/head';
 import NavBar from '../../components/navBar/NavBar';
 import FormularioCliente from '../../components/FormularioCliente';
 import FormularioEdicion from '../../components/FormularioEdicion';
+import FormularioDelete from '../../components/FormularioDelete';
 
 const Formulario = () => {
   return (
@@ -12,7 +13,8 @@ const Formulario = () => {
         <title>Formulario de Cliente</title>
       </Head>
       <div>
-        <h1>Formulario de Cliente</h1>
+        {/* < NavBar/> */}
+        <FormularioDelete />
         <FormularioCliente />
         <FormularioEdicion />
       </div>
